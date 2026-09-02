@@ -1,0 +1,39 @@
+﻿[
+    {
+        "slug":  "urban-expansion",
+        "frames":  [
+                       "assets/img/works/saint-george/anim/urban-expansion-01.jpg",
+                       "assets/img/works/saint-george/anim/urban-expansion-02.jpg",
+                       "assets/img/works/saint-george/anim/urban-expansion-03.jpg",
+                       "assets/img/works/saint-george/anim/urban-expansion-04.jpg",
+                       "assets/img/works/saint-george/anim/urban-expansion-05.jpg"
+                   ],
+        "count":  5
+    },
+    {
+        "slug":  "sea-level-rise",
+        "frames":  [
+                       "assets/img/works/saint-george/anim/sea-level-rise-01.jpg",
+                       "assets/img/works/saint-george/anim/sea-level-rise-02.jpg",
+                       "assets/img/works/saint-george/anim/sea-level-rise-03.jpg"
+                   ],
+        "count":  3
+    },
+    {
+        "slug":  "sun-path",
+        "frames":  [
+                       "assets/img/works/saint-george/anim/sun-path-01.jpg",
+                       "assets/img/works/saint-george/anim/sun-path-02.jpg",
+                       "assets/img/works/saint-george/anim/sun-path-03.jpg",
+                       "assets/img/works/saint-george/anim/sun-path-04.jpg",
+                       "assets/img/works/saint-george/anim/sun-path-05.jpg",
+                       "assets/img/works/saint-george/anim/sun-path-06.jpg",
+                       "assets/img/works/saint-george/anim/sun-path-07.jpg",
+                       "assets/img/works/saint-george/anim/sun-path-08.jpg",
+                       "assets/img/works/saint-george/anim/sun-path-09.jpg",
+                       "assets/img/works/saint-george/anim/sun-path-10.jpg",
+                       "assets/img/works/saint-george/anim/sun-path-11.jpg"
+                   ],
+        "count":  11
+    }
+]

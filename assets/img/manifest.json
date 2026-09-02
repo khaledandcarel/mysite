@@ -1,0 +1,342 @@
+﻿[
+    {
+        "project":  "europan-18",
+        "group":  "Strategy",
+        "name":  "masterplan",
+        "source":  "Masterplan.jpg",
+        "full":  "assets/img/works/europan-18/masterplan.jpg",
+        "thumb":  "assets/img/works/europan-18/masterplan-thumb.jpg",
+        "w":  2000,
+        "h":  1502
+    },
+    {
+        "project":  "europan-18",
+        "group":  "Strategy",
+        "name":  "mobility-analysis",
+        "source":  "Mobility Analysis.jpg",
+        "full":  "assets/img/works/europan-18/mobility-analysis.jpg",
+        "thumb":  "assets/img/works/europan-18/mobility-analysis-thumb.jpg",
+        "w":  2000,
+        "h":  1539
+    },
+    {
+        "project":  "europan-18",
+        "group":  "Strategy",
+        "name":  "mobility-hubs-ecosystem",
+        "source":  "Mobility Hubs Ecosystem.jpg",
+        "full":  "assets/img/works/europan-18/mobility-hubs-ecosystem.jpg",
+        "thumb":  "assets/img/works/europan-18/mobility-hubs-ecosystem-thumb.jpg",
+        "w":  2000,
+        "h":  1551
+    },
+    {
+        "project":  "europan-18",
+        "group":  "Strategy",
+        "name":  "sustainable-mobility",
+        "source":  "Sustainable Mobility.jpg",
+        "full":  "assets/img/works/europan-18/sustainable-mobility.jpg",
+        "thumb":  "assets/img/works/europan-18/sustainable-mobility-thumb.jpg",
+        "w":  2000,
+        "h":  1548
+    },
+    {
+        "project":  "europan-18",
+        "group":  "Area 3 - Via Marconi",
+        "name":  "marconi-1",
+        "source":  "Marconi-1.png",
+        "full":  "assets/img/works/europan-18/marconi-1.jpg",
+        "thumb":  "assets/img/works/europan-18/marconi-1-thumb.jpg",
+        "w":  2000,
+        "h":  1780
+    },
+    {
+        "project":  "europan-18",
+        "group":  "Area 3 - Via Marconi",
+        "name":  "marconi-2",
+        "source":  "Marconi-2.png",
+        "full":  "assets/img/works/europan-18/marconi-2.jpg",
+        "thumb":  "assets/img/works/europan-18/marconi-2-thumb.jpg",
+        "w":  2000,
+        "h":  1409
+    },
+    {
+        "project":  "europan-18",
+        "group":  "Area 3 - Via Marconi",
+        "name":  "marconi-3",
+        "source":  "Marconi-3.png",
+        "full":  "assets/img/works/europan-18/marconi-3.jpg",
+        "thumb":  "assets/img/works/europan-18/marconi-3-thumb.jpg",
+        "w":  2000,
+        "h":  1407
+    },
+    {
+        "project":  "europan-18",
+        "group":  "Area 1 - Via Lepore",
+        "name":  "lepore-1",
+        "source":  "Lepore-1.jpg",
+        "full":  "assets/img/works/europan-18/lepore-1.jpg",
+        "thumb":  "assets/img/works/europan-18/lepore-1-thumb.jpg",
+        "w":  2000,
+        "h":  1125
+    },
+    {
+        "project":  "europan-18",
+        "group":  "Area 2 - Viale Trieste",
+        "name":  "station-outdoor-leisure-area-viale-trieste",
+        "source":  "Station Outdoor Leisure Area - Viale Trieste.jpg",
+        "full":  "assets/img/works/europan-18/station-outdoor-leisure-area-viale-trieste.jpg",
+        "thumb":  "assets/img/works/europan-18/station-outdoor-leisure-area-viale-trieste-thumb.jpg",
+        "w":  2000,
+        "h":  1250
+    },
+    {
+        "project":  "europan-18",
+        "group":  "Area 2 - Viale Trieste",
+        "name":  "station-1",
+        "source":  "Station-1.jpg",
+        "full":  "assets/img/works/europan-18/station-1.jpg",
+        "thumb":  "assets/img/works/europan-18/station-1-thumb.jpg",
+        "w":  2000,
+        "h":  912
+    },
+    {
+        "project":  "europan-18",
+        "group":  "Area 2 - Viale Trieste",
+        "name":  "station-2",
+        "source":  "Station-2.jpg",
+        "full":  "assets/img/works/europan-18/station-2.jpg",
+        "thumb":  "assets/img/works/europan-18/station-2-thumb.jpg",
+        "w":  2000,
+        "h":  1125
+    },
+    {
+        "project":  "europan-18",
+        "group":  "Area 4 - Villa Pinocchio",
+        "name":  "park-1",
+        "source":  "Park-1.jpg",
+        "full":  "assets/img/works/europan-18/park-1.jpg",
+        "thumb":  "assets/img/works/europan-18/park-1-thumb.jpg",
+        "w":  2000,
+        "h":  1333
+    },
+    {
+        "project":  "europan-18",
+        "group":  "Area 4 - Villa Pinocchio",
+        "name":  "park-2",
+        "source":  "Park-2.jpg",
+        "full":  "assets/img/works/europan-18/park-2.jpg",
+        "thumb":  "assets/img/works/europan-18/park-2-thumb.jpg",
+        "w":  2000,
+        "h":  1202
+    },
+    {
+        "project":  "saint-george",
+        "group":  "View",
+        "name":  "render-1",
+        "source":  "render 1.png",
+        "full":  "assets/img/works/saint-george/render-1.jpg",
+        "thumb":  "assets/img/works/saint-george/render-1-thumb.jpg",
+        "w":  2000,
+        "h":  1125
+    },
+    {
+        "project":  "saint-george",
+        "group":  "History",
+        "name":  "picture14",
+        "source":  "Picture14.png",
+        "full":  "assets/img/works/saint-george/picture14.jpg",
+        "thumb":  "assets/img/works/saint-george/picture14-thumb.jpg",
+        "w":  2000,
+        "h":  1415
+    },
+    {
+        "project":  "saint-george",
+        "group":  "History",
+        "name":  "picture16",
+        "source":  "Picture16.png",
+        "full":  "assets/img/works/saint-george/picture16.jpg",
+        "thumb":  "assets/img/works/saint-george/picture16-thumb.jpg",
+        "w":  2000,
+        "h":  1414
+    },
+    {
+        "project":  "saint-george",
+        "group":  "History",
+        "name":  "picture30",
+        "source":  "Picture30.png",
+        "full":  "assets/img/works/saint-george/picture30.jpg",
+        "thumb":  "assets/img/works/saint-george/picture30-thumb.jpg",
+        "w":  1373,
+        "h":  2000
+    },
+    {
+        "project":  "saint-george",
+        "group":  "History",
+        "name":  "picture31",
+        "source":  "Picture31.png",
+        "full":  "assets/img/works/saint-george/picture31.jpg",
+        "thumb":  "assets/img/works/saint-george/picture31-thumb.jpg",
+        "w":  1521,
+        "h":  2000
+    },
+    {
+        "project":  "saint-george",
+        "group":  "Boards",
+        "name":  "poster-1-copy-01",
+        "source":  "poster 1 copy-01.jpg",
+        "full":  "assets/img/works/saint-george/poster-1-copy-01.jpg",
+        "thumb":  "assets/img/works/saint-george/poster-1-copy-01-thumb.jpg",
+        "w":  1413,
+        "h":  2000
+    },
+    {
+        "project":  "biennale",
+        "group":  "Plates",
+        "name":  "beinnale-pub-01",
+        "source":  "Beinnale Pub-01.png",
+        "full":  "assets/img/blog/biennale/beinnale-pub-01.jpg",
+        "thumb":  "assets/img/blog/biennale/beinnale-pub-01-thumb.jpg",
+        "w":  2000,
+        "h":  2000
+    },
+    {
+        "project":  "biennale",
+        "group":  "Plates",
+        "name":  "beinnale-pub-02",
+        "source":  "Beinnale Pub-02.png",
+        "full":  "assets/img/blog/biennale/beinnale-pub-02.jpg",
+        "thumb":  "assets/img/blog/biennale/beinnale-pub-02-thumb.jpg",
+        "w":  2000,
+        "h":  2000
+    },
+    {
+        "project":  "biennale",
+        "group":  "Plates",
+        "name":  "beinnale-pub-03",
+        "source":  "Beinnale Pub-03.png",
+        "full":  "assets/img/blog/biennale/beinnale-pub-03.jpg",
+        "thumb":  "assets/img/blog/biennale/beinnale-pub-03-thumb.jpg",
+        "w":  2000,
+        "h":  2000
+    },
+    {
+        "project":  "biennale",
+        "group":  "Plates",
+        "name":  "beinnale-pub-04",
+        "source":  "Beinnale Pub-04.png",
+        "full":  "assets/img/blog/biennale/beinnale-pub-04.jpg",
+        "thumb":  "assets/img/blog/biennale/beinnale-pub-04-thumb.jpg",
+        "w":  2000,
+        "h":  2000
+    },
+    {
+        "project":  "biennale",
+        "group":  "Plates",
+        "name":  "beinnale-pub-05",
+        "source":  "Beinnale Pub-05.png",
+        "full":  "assets/img/blog/biennale/beinnale-pub-05.jpg",
+        "thumb":  "assets/img/blog/biennale/beinnale-pub-05-thumb.jpg",
+        "w":  2000,
+        "h":  2000
+    },
+    {
+        "project":  "biennale",
+        "group":  "Plates",
+        "name":  "beinnale-pub-06",
+        "source":  "Beinnale Pub-06.png",
+        "full":  "assets/img/blog/biennale/beinnale-pub-06.jpg",
+        "thumb":  "assets/img/blog/biennale/beinnale-pub-06-thumb.jpg",
+        "w":  2000,
+        "h":  2000
+    },
+    {
+        "project":  "biennale",
+        "group":  "Plates",
+        "name":  "beinnale-pub-07",
+        "source":  "Beinnale Pub-07.png",
+        "full":  "assets/img/blog/biennale/beinnale-pub-07.jpg",
+        "thumb":  "assets/img/blog/biennale/beinnale-pub-07-thumb.jpg",
+        "w":  2000,
+        "h":  1999
+    },
+    {
+        "project":  "fragile-narrative",
+        "group":  "Figures",
+        "name":  "1-01",
+        "source":  "1-01.png",
+        "full":  "assets/img/blog/fragile-narrative/1-01.jpg",
+        "thumb":  "assets/img/blog/fragile-narrative/1-01-thumb.jpg",
+        "w":  2000,
+        "h":  1414
+    },
+    {
+        "project":  "fragile-narrative",
+        "group":  "Figures",
+        "name":  "1-02",
+        "source":  "1-02.png",
+        "full":  "assets/img/blog/fragile-narrative/1-02.jpg",
+        "thumb":  "assets/img/blog/fragile-narrative/1-02-thumb.jpg",
+        "w":  2000,
+        "h":  1414
+    },
+    {
+        "project":  "fragile-narrative",
+        "group":  "Figures",
+        "name":  "1-03",
+        "source":  "1-03.png",
+        "full":  "assets/img/blog/fragile-narrative/1-03.jpg",
+        "thumb":  "assets/img/blog/fragile-narrative/1-03-thumb.jpg",
+        "w":  2000,
+        "h":  1414
+    },
+    {
+        "project":  "fragile-narrative",
+        "group":  "Figures",
+        "name":  "1-04",
+        "source":  "1-04.png",
+        "full":  "assets/img/blog/fragile-narrative/1-04.jpg",
+        "thumb":  "assets/img/blog/fragile-narrative/1-04-thumb.jpg",
+        "w":  2000,
+        "h":  1414
+    },
+    {
+        "project":  "fragile-narrative",
+        "group":  "Figures",
+        "name":  "1-05",
+        "source":  "1-05.png",
+        "full":  "assets/img/blog/fragile-narrative/1-05.jpg",
+        "thumb":  "assets/img/blog/fragile-narrative/1-05-thumb.jpg",
+        "w":  2000,
+        "h":  1414
+    },
+    {
+        "project":  "fragile-narrative",
+        "group":  "Figures",
+        "name":  "1-06",
+        "source":  "1-06.png",
+        "full":  "assets/img/blog/fragile-narrative/1-06.jpg",
+        "thumb":  "assets/img/blog/fragile-narrative/1-06-thumb.jpg",
+        "w":  2000,
+        "h":  1414
+    },
+    {
+        "project":  "fragile-narrative",
+        "group":  "Figures",
+        "name":  "1-07",
+        "source":  "1-07.png",
+        "full":  "assets/img/blog/fragile-narrative/1-07.jpg",
+        "thumb":  "assets/img/blog/fragile-narrative/1-07-thumb.jpg",
+        "w":  2000,
+        "h":  1414
+    },
+    {
+        "project":  "fragile-narrative",
+        "group":  "Figures",
+        "name":  "1-08",
+        "source":  "1-08.png",
+        "full":  "assets/img/blog/fragile-narrative/1-08.jpg",
+        "thumb":  "assets/img/blog/fragile-narrative/1-08-thumb.jpg",
+        "w":  2000,
+        "h":  1414
+    }
+]

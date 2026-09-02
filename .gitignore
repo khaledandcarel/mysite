@@ -1,0 +1,24 @@
+# ── Source archive ───────────────────────────────────────────────────────
+# The originals are ~600 MB. The site serves only assets/, so these stay out
+# of the repository. Keep them backed up somewhere else — they are not in git.
+#
+# Leading slashes matter: they anchor each pattern to the repository root.
+# Without them, "Blog/" would also match "assets/img/blog/" — and on Windows,
+# where git ignores case by default, it silently did.
+/Selected Works/
+/Blog/
+/CV/
+/Publications/
+/my photo.jpg
+
+# ── Not part of the site ─────────────────────────────────────────────────
+/skills/
+
+# ── Editor and OS noise ──────────────────────────────────────────────────
+.~lock.*#
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+*.tmp
+*.bak

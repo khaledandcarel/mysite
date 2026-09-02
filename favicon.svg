@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Khaled Gamal">
+  <rect width="32" height="32" fill="#0b0b0b"/>
+  <!-- the drafting grid the site is built on -->
+  <g stroke="#ffffff" stroke-width="2">
+    <path d="M0 16h32"/>
+    <path d="M16 0v32"/>
+  </g>
+</svg>

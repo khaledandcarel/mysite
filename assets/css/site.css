@@ -1,0 +1,1035 @@
+/* ==========================================================================
+   Khaled Gamal — Architect & Urban Researcher
+   Minimal editorial architecture site.
+
+   The page is a sheet of drafting paper: a dotted square grid sits behind
+   everything, and content is set against it with drafting-weight rules and
+   monospaced annotation. One committed light theme — white, black, air.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+
+:root {
+  --paper:      #ffffff;
+  --paper-sunk: #f7f7f5;
+  --ink:        #0b0b0b;
+  --graphite:   #45454a;   /*  9.5:1 on white — long-form text */
+  --pencil:     #737378;   /*  4.7:1 on white — metadata       */
+  --rule:       #e4e4e1;
+  --rule-soft:  #efefec;
+
+  /* drafting line weights */
+  --w-hair: 1px;
+  --w-mid:  1.5px;
+  --w-heavy: 2.5px;
+
+  --face: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --mono: 'Space Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --t-hero:  clamp(2.75rem, 9vw, 8.5rem);
+  --t-h1:    clamp(2rem, 5vw, 3.75rem);
+  --t-h2:    clamp(1.375rem, 2.8vw, 2.125rem);
+  --t-h3:    clamp(1.0625rem, 1.5vw, 1.3125rem);
+  --t-body:  1.1875rem;
+  --t-small: 1.0625rem;
+  --t-meta:  0.75rem;
+
+  --s-1: 0.5rem;  --s-2: 1rem;   --s-3: 1.5rem;  --s-4: 2rem;
+  --s-5: 3rem;    --s-6: 4.5rem; --s-7: 6.5rem;  --s-8: 9rem;
+
+  --shell:  1360px;
+  --gutter: clamp(1.25rem, 5vw, 4.5rem);
+
+  --grid-size: 58px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* the dotted grid tile, reused as an overlay on the home reel */
+  --grid-img: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72'%3E%3Cg stroke='%23000' stroke-width='1' stroke-dasharray='1 5' opacity='0.28'%3E%3Cpath d='M0 .5H72'/%3E%3Cpath d='M.5 0V72'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Phones and small tablets. The desktop sizes are set for a long measure and
+   read oversized on a narrow column, so step the whole scale down and pull the
+   vertical rhythm in — the pages become materially shorter to scroll. */
+@media (max-width: 48rem) {
+  :root {
+    --t-body:  1rem;
+    --t-small: 0.9375rem;
+    --t-meta:  0.6875rem;
+
+    --s-5: 2rem;
+    --s-6: 2.75rem;
+    --s-7: 3.5rem;
+    --s-8: 4.5rem;
+
+    --grid-size: 46px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Base
+   -------------------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--face);
+  font-size: var(--t-body);
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* The drafting grid. Fixed, so long pages don't show tiling seams. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--grid-img);
+  background-size: var(--grid-size) var(--grid-size);
+  background-position: center top;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+p { margin: 0 0 var(--s-3); text-wrap: pretty; }
+p:last-child { margin-bottom: 0; }
+
+/* Justified running text. Hyphenation is not optional here — without it,
+   justifying a narrow measure opens rivers of white space between words. */
+.prose,
+.prose p,
+.chapter__text,
+.article__body p,
+.entry__desc,
+.work__desc,
+.post-card__desc,
+.pub__cite {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-limit-chars: 7 3 3;
+}
+
+/* Short measures tear badly when justified — leave them ragged. */
+@media (max-width: 34rem) {
+  .prose, .prose p, .chapter__text, .article__body p,
+  .entry__desc, .work__desc, .post-card__desc, .pub__cite {
+    text-align: left;
+  }
+}
+
+:focus-visible {
+  outline: var(--w-heavy) solid var(--ink);
+  outline-offset: 3px;
+}
+
+::selection { background: var(--ink); color: var(--paper); }
+
+.skip-link {
+  position: absolute; left: var(--s-2); top: -120%;
+  z-index: 100;
+  padding: var(--s-2) var(--s-3);
+  background: var(--ink); color: var(--paper);
+  font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.14em; text-decoration: none;
+}
+.skip-link:focus { top: var(--s-2); }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Shared annotation voice: every label, number and caption on the site. */
+.mono,
+.eyebrow,
+.caption,
+.metric__key,
+.nav__link,
+.foot__inner,
+.entry__year,
+.pub__year {
+  font-family: var(--mono);
+  font-size: var(--t-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+.shell {
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* --------------------------------------------------------------------------
+   3. Header
+   -------------------------------------------------------------------------- */
+
+.site-head {
+  position: sticky; top: 0; z-index: 40;
+  /* 96%, not 90%: the nav labels are grey, and at 90% a dark image scrolling
+     underneath pulled them below the 4.5:1 contrast floor. */
+  background: color-mix(in srgb, var(--paper) 96%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: var(--w-hair) solid var(--rule);
+}
+
+.site-head__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s-3); min-height: 4rem;
+}
+
+.mark {
+  font-family: var(--mono);
+  font-size: var(--t-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav { display: none; }
+
+@media (min-width: 62rem) {
+  .nav { display: flex; gap: var(--s-4); }
+}
+
+.nav__link {
+  position: relative;
+  display: inline-flex; align-items: center;
+  min-height: 44px;
+  text-decoration: none;
+  color: var(--pencil);
+  transition: color 200ms var(--ease);
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: 0.85rem;
+  height: var(--w-mid); background: var(--ink);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 280ms var(--ease);
+}
+
+.nav__link:hover { color: var(--ink); }
+.nav__link:hover::after { transform: scaleX(1); }
+
+.nav__link[aria-current='page'] { color: var(--ink); }
+.nav__link[aria-current='page']::after { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .nav__link::after { transition: none; }
+}
+
+.nav-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 44px; min-height: 44px; padding: 0 var(--s-2);
+  background: none; border: var(--w-hair) solid var(--rule);
+  color: var(--ink);
+  font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.16em;
+  cursor: pointer;
+}
+
+@media (min-width: 62rem) { .nav-toggle { display: none; } }
+
+.nav-drawer { display: none; border-top: var(--w-hair) solid var(--rule); }
+.nav-drawer[data-open='true'] { display: block; }
+@media (min-width: 62rem) { .nav-drawer[data-open='true'] { display: none; } }
+
+.nav-drawer__link {
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: 52px;
+  border-bottom: var(--w-hair) solid var(--rule-soft);
+  font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.16em;
+  text-decoration: none;
+}
+.nav-drawer__link span { color: var(--pencil); }
+
+/* --------------------------------------------------------------------------
+   4. Home
+   -------------------------------------------------------------------------- */
+
+.home {
+  display: flex; flex-direction: column; justify-content: center;
+  padding-block: var(--s-4);
+}
+
+/* Wide screens: the statement and the index sit side by side, so the whole
+   site fits on one screen with nothing to scroll past. */
+@media (min-width: 62rem) {
+  .home {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-content: center;
+    align-items: center;
+  }
+}
+
+.home__eyebrow { display: block; margin-bottom: var(--s-2); color: var(--pencil); }
+
+.home__line {
+  max-width: 34ch;
+  font-size: clamp(1.125rem, 1.8vw, 1.625rem);
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+/* ── The reel ───────────────────────────────────────────────────────────
+   A slow band of work across the top of the home page. Images are
+   desaturated and sit under the same dotted grid as the rest of the page,
+   so they read as ground rather than as pictures pasted on top. */
+
+.reel {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  border-top: var(--w-hair) solid var(--rule);
+  border-bottom: var(--w-hair) solid var(--rule);
+  background: var(--paper-sunk);
+}
+
+/* The grid, laid back over the images. Fixed attachment so it lines up with
+   the page grid behind everything else rather than starting its own. */
+.reel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--grid-img);
+  background-size: var(--grid-size) var(--grid-size);
+  background-attachment: fixed;
+  background-position: center top;
+}
+
+.reel__track {
+  display: flex;
+  width: max-content;
+  gap: 0;
+}
+
+.reel__track img {
+  height: clamp(140px, 21vh, 230px);
+  width: auto;
+  flex: none;
+  object-fit: cover;
+  filter: grayscale(1) contrast(1.02);
+  opacity: 0.88;
+  border-right: var(--w-hair) solid var(--rule);
+}
+
+/* Phones: a shorter band and tighter padding, so the index still lands
+   close to one screen at the larger type size. */
+@media (max-width: 34rem) {
+  .reel__track img { height: 128px; }
+  .home { padding-block: var(--s-2); }
+  .index__row { min-height: 52px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reel__track { animation: reel 64s linear infinite; }
+  .reel:hover .reel__track { animation-play-state: paused; }
+}
+
+@keyframes reel {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* The index: the whole site, as a drawing register. */
+.index {
+  margin-top: var(--s-5);
+  border-top: var(--w-heavy) solid var(--ink);
+}
+
+@media (min-width: 62rem) { .index { margin-top: 0; } }
+
+.index__row {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  gap: var(--s-2);
+  align-items: center;
+  min-height: 56px;
+  padding-block: var(--s-1);
+  border-bottom: var(--w-hair) solid var(--rule);
+  text-decoration: none;
+  transition: padding-left 320ms var(--ease), background-color 320ms var(--ease);
+}
+
+.index__row:hover,
+.index__row:focus-visible {
+  padding-left: var(--s-3);
+  background: var(--paper-sunk);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .index__row { transition: none; }
+  .index__row:hover { padding-left: 0; }
+}
+
+.index__no { font-family: var(--mono); font-size: var(--t-meta); letter-spacing: 0.14em; color: var(--pencil); }
+
+.index__name {
+  font-size: clamp(1.125rem, 1.8vw, 1.5rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.index__note {
+  display: none;
+  font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--pencil);
+}
+
+@media (min-width: 48rem) { .index__note { display: block; } }
+
+/* --------------------------------------------------------------------------
+   5. Page scaffolding
+   -------------------------------------------------------------------------- */
+
+.page { padding-block: var(--s-6) var(--s-7); }
+
+/* Tighter blocks on a phone: less air between figures and chapters, so the
+   page reads as a sequence rather than a series of long empty gaps. */
+@media (max-width: 48rem) {
+  .page { padding-block: var(--s-4) var(--s-6); }
+  .page__head { margin-bottom: var(--s-4); padding-bottom: var(--s-3); }
+  .chapter { margin-top: var(--s-5); }
+  .plates { gap: var(--s-3); }
+  .works { gap: var(--s-5); }
+  .figure { margin: var(--s-4) 0; }
+  .section { margin-top: var(--s-5); }
+  .entry { padding-block: var(--s-2); }
+  .pub { padding-block: var(--s-3); }
+}
+
+.page__head {
+  padding-bottom: var(--s-4);
+  margin-bottom: var(--s-6);
+  border-bottom: var(--w-heavy) solid var(--ink);
+}
+
+.page__eyebrow { display: block; margin-bottom: var(--s-2); color: var(--pencil); }
+
+.page__title {
+  font-size: var(--t-h1);
+  letter-spacing: -0.035em;
+  max-width: 20ch;
+}
+
+.page__lede {
+  max-width: min(52ch, 34rem);
+  margin-top: var(--s-3);
+  font-size: clamp(1.0625rem, 1.7vw, 1.375rem);
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+  color: var(--graphite);
+}
+
+/* About: the portrait sits beside the title, small, not below it. */
+.page__head--portrait {
+  display: grid;
+  gap: var(--s-3);
+  align-items: start;
+}
+
+@media (min-width: 40rem) {
+  .page__head--portrait {
+    grid-template-columns: minmax(0, 1fr) 9.5rem;
+    gap: var(--s-5);
+  }
+}
+
+@media (min-width: 62rem) {
+  .page__head--portrait { grid-template-columns: minmax(0, 1fr) 12rem; }
+}
+
+.portrait-sm { margin: 0; }
+
+.portrait-sm img {
+  width: 100%;
+  border: var(--w-hair) solid var(--rule);
+  filter: grayscale(1) contrast(1.03);
+}
+
+.portrait-sm figcaption {
+  margin-top: 0.4rem;
+  font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--pencil);
+}
+
+/* Two-column sheet: annotation margin + content field. */
+.sheet { display: grid; gap: var(--s-3); }
+
+@media (min-width: 62rem) {
+  .sheet {
+    grid-template-columns: 13rem minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: start;
+  }
+}
+
+.sheet__note { color: var(--pencil); font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.16em; line-height: 1.8; }
+
+@media (min-width: 62rem) {
+  .sheet__note--sticky { position: sticky; top: 6rem; }
+}
+
+/* ch resolves wide in Instrument Sans, so cap the measure in rem too —
+   otherwise the larger type runs to ~86 characters a line. */
+.prose { max-width: min(66ch, 41rem); color: var(--graphite); }
+.prose > * + * { margin-top: var(--s-3); }
+.prose strong { color: var(--ink); font-weight: 600; }
+.prose em { font-style: italic; }
+
+.prose h3 {
+  margin-top: var(--s-5);
+  font-size: var(--t-h3);
+  color: var(--ink);
+}
+
+.prose a { color: var(--ink); text-decoration: none; border-bottom: var(--w-hair) solid var(--rule); }
+.prose a:hover { border-color: var(--ink); }
+
+.section { margin-top: var(--s-6); }
+
+.section__head {
+  margin-bottom: var(--s-4);
+  padding-bottom: var(--s-1);
+  border-bottom: var(--w-mid) solid var(--ink);
+  font-family: var(--mono); font-size: var(--t-meta); font-weight: 400;
+  text-transform: uppercase; letter-spacing: 0.2em;
+}
+
+/* --------------------------------------------------------------------------
+   6. Metric / titleblock strip
+   -------------------------------------------------------------------------- */
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: var(--w-hair) solid var(--rule);
+  border-left: var(--w-hair) solid var(--rule);
+}
+
+@media (min-width: 48rem) { .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+.metric {
+  padding: var(--s-2);
+  border-right: var(--w-hair) solid var(--rule);
+  border-bottom: var(--w-hair) solid var(--rule);
+}
+
+.metric__key { display: block; margin-bottom: 0.35rem; color: var(--pencil); }
+.metric__val { font-size: var(--t-small); line-height: 1.35; }
+
+/* --------------------------------------------------------------------------
+   7. Works
+   -------------------------------------------------------------------------- */
+
+.works { display: grid; gap: var(--s-6); }
+
+@media (min-width: 56rem) {
+  .works { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-6) clamp(1.5rem, 4vw, 4rem); }
+}
+
+.work { display: block; text-decoration: none; color: inherit; }
+
+.work__frame {
+  overflow: hidden;
+  background: var(--paper-sunk);
+  border: var(--w-hair) solid var(--rule);
+  aspect-ratio: 4 / 3;
+}
+
+.work__frame img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 700ms var(--ease);
+}
+
+.work:hover .work__frame img,
+.work:focus-visible .work__frame img { transform: scale(1.035); }
+
+@media (prefers-reduced-motion: reduce) {
+  .work__frame img { transition: none; }
+  .work:hover .work__frame img { transform: none; }
+}
+
+.work__bar {
+  display: flex; justify-content: space-between; gap: var(--s-2);
+  margin-top: var(--s-2); padding-bottom: var(--s-1);
+  border-bottom: var(--w-mid) solid var(--ink);
+  font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--pencil);
+}
+
+.work__title {
+  margin-top: var(--s-2);
+  font-size: var(--t-h2);
+  letter-spacing: -0.03em;
+}
+
+.work__desc { margin-top: var(--s-2); max-width: 46ch; font-size: var(--t-small); color: var(--graphite); }
+
+/* Reserved slot for work still to come. */
+.work--empty .work__frame {
+  display: grid; place-items: center;
+  background: transparent;
+  border-style: dashed;
+  border-color: var(--rule);
+}
+
+.work--empty .work__frame span {
+  font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.18em; color: var(--pencil);
+}
+
+/* --------------------------------------------------------------------------
+   8. Plates
+   -------------------------------------------------------------------------- */
+
+.chapter { margin-top: var(--s-7); }
+.chapter:first-of-type { margin-top: 0; }
+
+.chapter__head {
+  display: flex; align-items: baseline; gap: var(--s-2);
+  padding-bottom: var(--s-1);
+  margin-bottom: var(--s-4);
+  border-bottom: var(--w-mid) solid var(--ink);
+}
+
+.chapter__no { font-family: var(--mono); font-size: var(--t-meta); letter-spacing: 0.16em; color: var(--pencil); }
+.chapter__title { font-size: var(--t-h3); font-weight: 600; letter-spacing: -0.02em; }
+
+.chapter__text { max-width: min(62ch, 41rem); margin-bottom: var(--s-4); color: var(--graphite); font-size: var(--t-small); }
+
+.plates { display: grid; gap: var(--s-4); }
+
+@media (min-width: 56rem) {
+  .plates { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5); }
+  .plates--single { grid-template-columns: 1fr; }
+}
+
+.plate { margin: 0; cursor: zoom-in; }
+.plate--wide { grid-column: 1 / -1; }
+
+.plate__frame {
+  border: var(--w-hair) solid var(--rule);
+  background: var(--paper);
+  padding: var(--s-1);
+  overflow: hidden;
+}
+
+.plate img { width: 100%; transition: transform 600ms var(--ease); }
+.plate:hover img { transform: scale(1.015); }
+
+@media (prefers-reduced-motion: reduce) {
+  .plate img { transition: none; }
+  .plate:hover img { transform: none; }
+}
+
+.plate figcaption {
+  margin-top: var(--s-1);
+  font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--pencil);
+}
+
+/* A sideways scroll of full boards. Snaps, and keeps its own scrollbar so
+   the page body never scrolls horizontally. */
+.strip {
+  display: flex;
+  gap: var(--s-3);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  padding-bottom: var(--s-2);
+  -webkit-overflow-scrolling: touch;
+}
+
+.strip__item {
+  flex: none;
+  width: min(78vw, 26rem);
+  scroll-snap-align: start;
+}
+
+.strip:focus-visible { outline: var(--w-heavy) solid var(--ink); outline-offset: 4px; }
+
+/* ── Frame-sequence animation ───────────────────────────────────────────
+   The source GIFs were 44MB between them. Same motion, as stacked JPEG
+   frames: a tenth of the weight, and it can be paused. */
+
+.anim { margin: 0; }
+
+.anim__stage {
+  position: relative;
+  border: var(--w-hair) solid var(--rule);
+  background: var(--paper);
+  padding: var(--s-1);
+}
+
+/* The box reserves its height from --ar, so the frames can stack absolutely
+   and still be inside the viewport for lazy loading to fire. */
+.anim__frames {
+  position: relative;
+  aspect-ratio: var(--ar, 16 / 9);
+}
+
+.anim__frames img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 260ms linear;
+}
+
+.anim__frames img.is-on { opacity: 1; }
+
+/* With no JS, or with motion turned off, the last frame stands alone as a
+   finished still. */
+.anim__frames img:last-child { opacity: 1; }
+.js .anim__frames img:last-child { opacity: 0; }
+.js .anim__frames img:last-child.is-on { opacity: 1; }
+
+.anim__bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--s-2); margin-top: var(--s-1);
+}
+
+.anim__caption {
+  font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--pencil);
+}
+
+.anim__toggle {
+  display: none;
+  align-items: center; justify-content: center;
+  min-height: 44px; min-width: 44px; padding: 0 var(--s-2);
+  background: none; border: var(--w-hair) solid var(--rule);
+  color: var(--ink);
+  font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.14em;
+  cursor: pointer; white-space: nowrap;
+}
+
+.js .anim__toggle { display: inline-flex; }
+.anim__toggle:hover { border-color: var(--ink); }
+
+/* --------------------------------------------------------------------------
+   9. CV
+   -------------------------------------------------------------------------- */
+
+.entry {
+  display: grid; gap: 0.35rem;
+  padding-block: var(--s-3);
+  border-bottom: var(--w-hair) solid var(--rule);
+}
+
+@media (min-width: 48rem) {
+  .entry { grid-template-columns: 10rem minmax(0, 1fr); gap: var(--s-3); }
+}
+
+.entry__year { color: var(--pencil); padding-top: 0.3rem; letter-spacing: 0.1em; }
+.entry__title { font-size: var(--t-h3); font-weight: 600; letter-spacing: -0.02em; }
+.entry__org { margin-top: 0.15rem; font-size: var(--t-small); color: var(--pencil); }
+.entry__desc { margin-top: var(--s-2); max-width: min(60ch, 40rem); font-size: var(--t-small); color: var(--graphite); }
+
+.tags { display: flex; flex-wrap: wrap; gap: var(--s-1); margin-top: var(--s-2); }
+
+.tag {
+  padding: 0.3rem 0.6rem;
+  border: var(--w-hair) solid var(--rule);
+  font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--graphite);
+}
+
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  min-height: 48px; padding: 0 var(--s-3);
+  background: var(--ink); color: var(--paper);
+  font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.16em;
+  text-decoration: none;
+  transition: opacity 200ms var(--ease);
+}
+.btn:hover { opacity: 0.82; }
+
+/* --------------------------------------------------------------------------
+   10. Publications
+   -------------------------------------------------------------------------- */
+
+.pub {
+  display: grid; gap: 0.35rem;
+  padding-block: var(--s-4);
+  border-bottom: var(--w-hair) solid var(--rule);
+}
+
+@media (min-width: 48rem) {
+  .pub { grid-template-columns: 5rem minmax(0, 1fr) auto; gap: var(--s-3); align-items: start; }
+}
+
+.pub__year { color: var(--pencil); padding-top: 0.35rem; letter-spacing: 0.1em; }
+.pub__title { font-size: var(--t-h3); font-weight: 600; letter-spacing: -0.02em; max-width: 40ch; }
+.pub__cite { margin-top: var(--s-1); font-size: var(--t-small); color: var(--graphite); max-width: 58ch; }
+.pub__doi { margin-top: 0.35rem; font-family: var(--mono); font-size: var(--t-meta); color: var(--pencil); word-break: break-all; }
+
+.pub__link {
+  align-self: start;
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.14em;
+  text-decoration: none;
+  border-bottom: var(--w-mid) solid var(--ink);
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   11. Blog
+   -------------------------------------------------------------------------- */
+
+.post-card {
+  display: grid; gap: var(--s-3);
+  padding-block: var(--s-4);
+  border-bottom: var(--w-hair) solid var(--rule);
+  text-decoration: none; color: inherit;
+}
+
+@media (min-width: 56rem) {
+  .post-card { grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+}
+
+.post-card__frame { overflow: hidden; border: var(--w-hair) solid var(--rule); background: var(--paper-sunk); }
+.post-card__frame img { width: 100%; transition: transform 700ms var(--ease); }
+.post-card:hover .post-card__frame img { transform: scale(1.03); }
+
+@media (prefers-reduced-motion: reduce) {
+  .post-card__frame img { transition: none; }
+  .post-card:hover .post-card__frame img { transform: none; }
+}
+
+.post-card__title { font-size: var(--t-h2); letter-spacing: -0.03em; margin-top: var(--s-1); }
+.post-card__desc { margin-top: var(--s-2); max-width: 54ch; font-size: var(--t-small); color: var(--graphite); }
+
+.article { max-width: min(68ch, 44rem); }
+
+.article__body { font-size: 1.25rem; line-height: 1.7; color: var(--graphite); }
+
+@media (max-width: 48rem) {
+  .article__body { font-size: 1.0625rem; line-height: 1.62; }
+  .article__body blockquote { padding-left: var(--s-2); }
+}
+.article__body > * + * { margin-top: var(--s-3); }
+
+.article__body h2 {
+  margin-top: var(--s-6);
+  padding-bottom: var(--s-1);
+  border-bottom: var(--w-mid) solid var(--ink);
+  font-size: var(--t-h3);
+  font-family: var(--mono);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--ink);
+}
+
+.article__body strong { color: var(--ink); }
+
+.article__body blockquote {
+  margin: var(--s-4) 0;
+  padding-left: var(--s-3);
+  border-left: var(--w-heavy) solid var(--ink);
+  color: var(--ink);
+  text-align: left;
+  hyphens: none;
+}
+
+/* Reference marks: raised, small, and never pushing the leading around. */
+.article__body sup {
+  font-family: var(--mono);
+  font-size: 0.62em;
+  line-height: 0;
+  vertical-align: super;
+  color: var(--pencil);
+  margin-left: 0.1em;
+}
+
+.footnote-note {
+  margin-top: var(--s-5);
+  padding-top: var(--s-2);
+  border-top: var(--w-hair) solid var(--rule);
+  font-family: var(--mono);
+  font-size: var(--t-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pencil);
+  text-align: left;
+  hyphens: none;
+}
+
+/* Arabic runs in the source keep their own script. */
+.article__body [lang='ar'] { font-size: 1.05em; }
+
+.figure { margin: var(--s-5) 0; }
+.article__body .figure { cursor: zoom-in; }
+.figure img { width: 100%; border: var(--w-hair) solid var(--rule); }
+.figure figcaption {
+  margin-top: var(--s-1);
+  font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--pencil);
+}
+
+/* Figures may break the measure on wide screens. */
+@media (min-width: 75rem) {
+  .figure--wide { width: min(115%, calc(100vw - 2 * var(--gutter))); }
+}
+
+/* --------------------------------------------------------------------------
+   12. Contact
+   -------------------------------------------------------------------------- */
+
+.contact { display: grid; gap: var(--s-4); }
+
+@media (min-width: 48rem) { .contact { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+.contact__item { padding-block: var(--s-2); border-top: var(--w-hair) solid var(--rule); }
+.contact__key { display: block; margin-bottom: 0.35rem; font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.16em; color: var(--pencil); }
+
+.contact__val {
+  display: inline-block;
+  font-size: clamp(1.0625rem, 2vw, 1.375rem);
+  letter-spacing: -0.02em; text-decoration: none;
+  border-bottom: var(--w-hair) solid var(--rule);
+  transition: border-color 200ms var(--ease);
+  word-break: break-word;
+}
+.contact__val:hover { border-color: var(--ink); }
+.contact__val--plain { border: 0; }
+
+/* --------------------------------------------------------------------------
+   13. Footer
+   -------------------------------------------------------------------------- */
+
+/* Matches the header: same hairline, same compact band. */
+.foot {
+  margin-top: var(--s-7);
+  border-top: var(--w-hair) solid var(--rule);
+}
+
+.foot__inner {
+  min-height: 3.25rem;
+  align-items: center;
+}
+
+.foot--tight { margin-top: var(--s-3); }
+
+.foot__inner {
+  display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4);
+  justify-content: space-between; color: var(--pencil);
+  padding-block: var(--s-1);
+}
+
+.foot__inner a { text-decoration: none; }
+.foot__inner a:hover { color: var(--ink); }
+
+/* --------------------------------------------------------------------------
+   14. Lightbox
+   -------------------------------------------------------------------------- */
+
+.lb { position: fixed; inset: 0; z-index: 90; display: none; background: var(--paper); padding: var(--s-3); }
+
+/* minmax(0, 1fr), not 1fr: a bare 1fr track has an automatic minimum, so a
+   tall board grew the row past the viewport and the image was cut off
+   instead of being scaled down to fit. */
+.lb[data-open='true'] {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: var(--s-2);
+}
+
+.lb__bar {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s-2);
+  font-family: var(--mono); font-size: var(--t-meta);
+  text-transform: uppercase; letter-spacing: 0.14em; color: var(--pencil);
+}
+
+.lb__stage { position: relative; min-height: 0; min-width: 0; }
+
+/* Pinned to the stage box, then letterboxed by object-fit.
+   Percentage heights were the obvious approach and they do not work here:
+   inside the grid the image resolved width:100% but treated height:100% as
+   auto, so it kept its width-derived height and ran off the bottom of the
+   screen. inset:0 gives a definite box no matter how the track is sized. */
+.lb__stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.lb__btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 44px; min-height: 44px; padding: 0 var(--s-2);
+  background: none; border: var(--w-hair) solid var(--rule); color: var(--ink);
+  font-family: var(--mono); font-size: var(--t-meta); cursor: pointer;
+}
+.lb__btn:hover { border-color: var(--ink); }
+.lb__btn[disabled] { opacity: 0.3; cursor: default; }
+.lb__nav { display: flex; gap: var(--s-2); }
+
+/* --------------------------------------------------------------------------
+   15. Motion
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 750ms var(--ease), transform 750ms var(--ease);
+  }
+  .js [data-reveal].is-in { opacity: 1; transform: none; }
+}
+
+@media print {
+  body::before, .site-head, .nav-drawer, .lb, .btn { display: none !important; }
+  body { background: #fff; }
+  .page { padding: 0; }
+  .entry, .pub { page-break-inside: avoid; }
+}
